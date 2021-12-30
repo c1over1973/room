@@ -26,8 +26,8 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.MyViewHolder>(){
         holder.itemView.title.text = currentItem.title.toString()
 
         holder.itemView.rowLayout.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToNoteFragment(currentItem)
-            holder.itemView.findNavController().navigate(R.id.action_listFragment_to_noteFragment)
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
         }
     }
 
@@ -39,5 +39,6 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.MyViewHolder>(){
         this.noteList = note
         notifyDataSetChanged()
     }
+
 
 }
