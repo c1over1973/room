@@ -11,20 +11,11 @@
         android:label="List"
         tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_listFragment_to_noteFragment"
-            app:destination="@id/noteFragment" />
-        <action
             android:id="@+id/action_listFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/noteFragment"
-        android:name="com.example.room.fragment.list.noteFragment"
-        android:label="Note"
-        tools:layout="@layout/fragment_note" >
         <action
-            android:id="@+id/action_noteFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            android:id="@+id/action_listFragment_to_addFragment2"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -37,5 +28,14 @@
         <argument
             android:name="currentNote"
             app:argType="com.example.room.data.Note" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.room.fragment.add.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_listFragment2"
+            app:destination="@id/listFragment" />
     </fragment>
 </navigation>

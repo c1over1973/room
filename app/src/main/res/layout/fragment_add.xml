@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.update.UpdateFragment"
+    tools:context=".fragment.add.AddFragment"
     android:orientation="vertical"
     android:padding="24dp">
 
-    <EditText
-        android:id="@+id/upd_title"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:textSize="30dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/upd_content"
+        android:id="@+id/edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="主題" />
+
+    <EditText
+        android:id="@+id/edit_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="24dp"
+        android:hint="描述..."
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

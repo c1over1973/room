@@ -1,13 +1,9 @@
 package com.example.room.data
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.example.room.fragment.list.SwipeToDeleteCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

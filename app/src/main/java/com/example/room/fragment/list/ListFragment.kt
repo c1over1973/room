@@ -15,13 +15,10 @@ import com.example.room.R
 import com.example.room.data.NoteViewModel
 import com.example.room.databinding.FragmentListBinding
 import com.example.room.fragment.update.UpdateFragmentArgs
+import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment() {
 
-    private var mbinding: FragmentListBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = mbinding!!
 
     private lateinit var mNoteViewModel: NoteViewModel
     private val args by navArgs<UpdateFragmentArgs>()
@@ -31,50 +28,43 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mbinding = FragmentListBinding.inflate(inflater, container, false)
+        val binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        //Recyclerview
-        val adapter = NoteAdapter()
+        val adapter = NoteListAdapter()
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        //itemtouchhelper
+        val swipetoDelete = object : SwipeToDelete(){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val note = adapter.currentList[viewHolder.adapterPosition]
+                mNoteViewModel.deleteNote(note)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipetoDelete)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
         //NoteViewModel
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-        mNoteViewModel.readAllData.observe(viewLifecycleOwner, {note -> adapter.setData(note)})
-
-        //swipe to delete
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-            }
-        })
+        mNoteViewModel.readAllData.observe(viewLifecycleOwner){adapter.submitList(it)}
 
 
-        mbinding!!.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_noteFragment)
+        binding!!.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_listFragment_to_addFragment2)
         }
 
         //add menu
         setHasOptionsMenu(true)
 
-
         return view
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mbinding = null
-    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        mbinding = null
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.del_menu, menu)

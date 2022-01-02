@@ -1,12 +1,17 @@
 package com.example.room.fragment.list
 
-import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class SwipeToDeleteCallback(context: Context): ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+abstract class SwipeToDelete : ItemTouchHelper.Callback() {
+    override fun getMovementFlags(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        val swipeFlag = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
 
-
+        return makeMovementFlags(0, swipeFlag)
+    }
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -14,10 +19,5 @@ abstract class SwipeToDeleteCallback(context: Context): ItemTouchHelper.SimpleCa
         target: RecyclerView.ViewHolder
     ): Boolean {
         return false
-    }
-
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-
     }
 }
