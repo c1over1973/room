@@ -15,7 +15,6 @@ import com.example.room.R
 import com.example.room.data.NoteViewModel
 import com.example.room.databinding.FragmentListBinding
 import com.example.room.fragment.update.UpdateFragmentArgs
-import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment() {
 
@@ -37,7 +36,7 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         //itemtouchhelper
-        val swipetoDelete = object : SwipeToDelete(){
+        val swipetoDelete = object : SwipeToDelete(requireActivity()){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val note = adapter.currentList[viewHolder.adapterPosition]
                 mNoteViewModel.deleteNote(note)

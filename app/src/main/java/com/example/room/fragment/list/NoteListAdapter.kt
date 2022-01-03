@@ -17,6 +17,7 @@ class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteListViewHolder>(Di
         fun bind(note: Note){
             binding.apply {
                 title.text = note.title
+                describe.text = note.content
             }
         }
     }
