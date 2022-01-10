@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="50dp"
+        android:textSize="30dp"
         android:textColor="@color/black"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +23,8 @@
         android:id="@+id/describe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:text="content"
-        android:layout_marginLeft="20dp"
         android:textColor="@color/gray"/>
 
     <View

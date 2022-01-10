@@ -3,6 +3,7 @@ package com.example.room.fragment.list
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +17,12 @@ import com.example.room.data.NoteViewModel
 import com.example.room.databinding.FragmentListBinding
 import com.example.room.fragment.update.UpdateFragmentArgs
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(){
 
 
     private lateinit var mNoteViewModel: NoteViewModel
-    private val args by navArgs<UpdateFragmentArgs>()
+//    private val args by navArgs<UpdateFragmentArgs>()
+    private val adapter = NoteListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +32,7 @@ class ListFragment : Fragment() {
         val binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val adapter = NoteListAdapter()
+//        val adapter = NoteListAdapter()
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -59,20 +61,18 @@ class ListFragment : Fragment() {
 
         return view
     }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        mbinding = null
-//    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.del_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.list_menu, menu)
+
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_del){
-            deleteAllData()
+        when(item.itemId){
+            R.id.menu_del -> deleteAllData()
         }
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -87,5 +87,7 @@ class ListFragment : Fragment() {
         respond.setMessage("是否清除所有資料?")
         respond.create().show()
     }
+
+
 
 }
