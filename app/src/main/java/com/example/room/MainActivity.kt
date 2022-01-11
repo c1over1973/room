@@ -2,6 +2,8 @@ package com.example.room
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 
@@ -11,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupActionBarWithNavController(findNavController(R.id.fragment))
+
     }
 
     //back press

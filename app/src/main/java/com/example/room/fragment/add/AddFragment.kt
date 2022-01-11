@@ -33,6 +33,7 @@ class AddFragment : Fragment() {
         //add menu
         setHasOptionsMenu(true)
 
+
         return view
     }
 
@@ -68,7 +69,7 @@ class AddFragment : Fragment() {
     }
 
     private fun inputCheck(title: String, content: String): Boolean {
-        return !title.isEmpty() && !content.isEmpty()
+        return title.isNotEmpty() && content.isNotEmpty()
     }
 
 }

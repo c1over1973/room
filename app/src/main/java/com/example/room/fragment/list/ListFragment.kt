@@ -2,27 +2,27 @@ package com.example.room.fragment.list
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.room.R
 import com.example.room.data.NoteViewModel
 import com.example.room.databinding.FragmentListBinding
-import com.example.room.fragment.update.UpdateFragmentArgs
 
 class ListFragment : Fragment(){
 
 
     private lateinit var mNoteViewModel: NoteViewModel
-//    private val args by navArgs<UpdateFragmentArgs>()
     private val adapter = NoteListAdapter()
+
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +49,7 @@ class ListFragment : Fragment(){
 
         //NoteViewModel
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-        mNoteViewModel.readAllData.observe(viewLifecycleOwner){adapter.submitList(it)}
+        mNoteViewModel.readAllData.observe(requireActivity()){adapter.submitList(it)}
 
 
         binding!!.floatingActionButton.setOnClickListener {
@@ -59,15 +59,41 @@ class ListFragment : Fragment(){
         //add menu
         setHasOptionsMenu(true)
 
+
+
         return view
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         inflater.inflate(R.menu.list_menu, menu)
 
+        val searchItem = menu.findItem(R.id.menu_search)
+        searchView = searchItem.actionView as SearchView
+        searchView.queryHint = "Search event"
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(query != null){
+                    searchData(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null){
+                    searchData(query)
+                }
+                return true
+            }
+
+        })
     }
 
+    private fun searchData(query: String){
+        val searchQuery = "%$query%"
 
+        mNoteViewModel.searchData(searchQuery).observe(requireActivity()){adapter.submitList(it)}
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_del -> deleteAllData()
@@ -75,6 +101,8 @@ class ListFragment : Fragment(){
 
         return super.onOptionsItemSelected(item)
     }
+
+
 
     private fun deleteAllData() {
         val respond = AlertDialog.Builder(requireContext())

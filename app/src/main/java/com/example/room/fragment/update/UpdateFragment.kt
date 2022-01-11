@@ -73,7 +73,7 @@ class UpdateFragment : Fragment() {
     }
 
     private fun inputcheck(title: String, content: String): Boolean{
-        return !title.isEmpty() && !content.isEmpty()
+        return title.isNotEmpty() && content.isNotEmpty()
     }
 
 

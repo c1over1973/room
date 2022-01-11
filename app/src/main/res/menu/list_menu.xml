@@ -5,7 +5,8 @@
     <item android:icon="@drawable/ic_search"
         android:id="@+id/menu_search"
         android:title="Search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.SearchView"/>
 
     <item android:icon="@drawable/ic_del"
         android:id="@+id/menu_del"
